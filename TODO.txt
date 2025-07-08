@@ -1,6 +1,0 @@
-improve the XPATH queries to get less null data
-maybe figure out a way to scrape from multiple channels at once?
-a lot of the nulls are probably from subsequent messages not having the profile in the message, so i can just use the last result. so i should check that out maybe.
-figure out an alternate way to detect if a message is a reply other than just checking if it starts with a @
-figure out the emoji's name from the emoji <emoji /> on my find_body() function
-maybe make images like <image href="..." />. so as in like it looks on the source code. Or maybe something better. Maybe just the href link is fine too.

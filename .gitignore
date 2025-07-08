@@ -2,3 +2,7 @@
 .venv
 screenshot.png
 *.json
+*.csv
+*.png
+__pycache__
+.idea
