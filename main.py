@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from io import StringIO
 import json
 import logging
@@ -11,6 +12,8 @@ from logging import getLogger
 from pathlib import Path
 from typing import Literal, Self
 
+import dateutil
+import dateutil.parser
 import pandas as pd
 from dotenv import load_dotenv
 from selenium import webdriver
@@ -241,6 +244,7 @@ class MessageScrape:
                 f"https://discord.com/channels/{self.get_server_id()}/{c_id}"
             )
         self.saving_file = Path(str(SAVING_PATH) + f".{WRITING_MODE}")
+        self.last_check = datetime.now().timestamp()
         self.is_crazy = os.getenv("crazy") or True
         if isinstance(self.is_crazy, str):
             self.is_crazy = True if self.is_crazy.lower().strip()\
@@ -309,8 +313,12 @@ class MessageScrape:
                 msg = Message(msg, last_message, self.driver)
                 logged_messages.append(msg.to_dict())
                 if self.is_crazy and msg.body and "crazy" in msg.body.lower():
-                    self.crazy()
+                    if msg.datetime:
+                        msgdate = dateutil.parser.isoparse(msg.datetime)
+                        if msgdate.timestamp() > self.last_check:
+                            self.crazy()
 
+            self.last_check = datetime.now().timestamp()
             time.sleep(SAVING_INTERVAL_SECONDS)
         except StaleElementReferenceException:
             log.warning("FAILED TO GET A MESSAGE. RE-GRABBING TEXT-BOX...")
@@ -336,20 +344,22 @@ class MessageScrape:
             " and @contenteditable=\"true\"]"
         )
         while "Pigs don't fly":
-            try:
-                for sentence in CRAZY:
-                    typer = TypingSim(sentence)
-                    textbox.click()
-                    for c in typer:
-                        textbox.send_keys(c)
-                    # in case of slowmode
-                    while textbox.text:
-                        textbox.send_keys("\n") # enter
-                        if textbox.text:
-                            time.sleep(0.5)
-            except KeyboardInterrupt:
-                print("sorry :( ")
-                break
+            for sentence in CRAZY:
+                typer = TypingSim(sentence)
+                textbox.click()
+                for c in typer:
+                    if self.driver.switch_to.active_element != textbox:
+                        print("sorry :( ")
+                        return
+                    textbox.send_keys(c)
+                # in case of slowmode
+                while textbox.text:
+                    if self.driver.switch_to.active_element != textbox:
+                        print("sorry :( ")
+                        return
+                    textbox.send_keys("\n") # enter
+                    if textbox.text:
+                        time.sleep(0.5)
 
     def write_csv(self, file: Path, to_write: str) -> None:
         csv = pd.read_json(StringIO(to_write), encoding="utf-8").to_csv(
