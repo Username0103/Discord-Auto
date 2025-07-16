@@ -48,8 +48,7 @@ load_dotenv("./.env")
 NEEDED_ENV_KEYS = {"discord_email", "discord_pass"}
 OPTIONAL_ENV_KEYS = {
     "target_server_name",
-    "target_channel_id",
-    "not_crazy"
+    "target_channel_id"
 }
 for key in NEEDED_ENV_KEYS:
     if not os.getenv(key):
@@ -406,6 +405,11 @@ class MessageScrape:
         msg.pop("is_reply_preview", None)
         return msg
 
+# hidden!
+CRAZY = ["Crazy?", "I was crazy once.", "They put me in a room.",
+         "A rubber room.", "A rubber room with rats.", "A rubber" +
+         " room with rubber rats.", "Rubber rats? I hate rubber " +
+         "rats.", "They make me crazy."]
 
 class Helpers:
     def __init__(self, driver: WebDriver) -> None:
@@ -480,12 +484,6 @@ def init() -> None:
         MessageScrape(sel[0])
         log.info("FINISHED SCRAPING. CLOSING BROWSER...")
     log.info("PROGRAM FINISHED RUNNING.")
-
-# hidden!
-CRAZY = ["Crazy?", "I was crazy once.", "They put me in a room.",
-         "A rubber room.", "A rubber room with rats.", "A rubber" +
-         " room with rubber rats.", "Rubber rats? I hate rubber " +
-         "rats.", "They make me crazy."]
 
 if __name__ == "__main__":
     init()
