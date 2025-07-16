@@ -5,12 +5,11 @@ A Python-based Discord message scraper that automatically logs into Discord acco
 ## Features
 
 - **Automated Discord Login**: Securely logs into Discord using credentials from environment variables
-- **Message Scraping**: Extracts complete message histories from specified channels and servers[1]
-- **Data Export**: Saves collected messages in JSON or CSV format for analysis[1]
-- **Resume Capability**: Can continue scraping from where it left off using saved state[1]
-- **Typing Simulation**: Includes realistic typing patterns with configurable WPM and typo rates[1]
-- **Stealth Mode**: Uses selenium-stealth to avoid detection[1]
-- **Auto-Response Feature**: Contains a "crazy" mode that responds to specific trigger words[1]
+- **Message Scraping**: Extracts complete message histories from specified channels and servers
+- **Data Export**: Saves collected messages in JSON or CSV format for analysis
+- **Resume Capability**: Can continue scraping from where it left off using saved state
+- **Typing Simulation**: Includes realistic typing patterns with configurable WPM and typo rates
+- **Stealth Mode**: Uses selenium-stealth to avoid detection
 
 ## Installation
 
