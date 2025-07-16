@@ -50,6 +50,7 @@ python main.py
    - Navigate to the specified server and channel
    - Begin scraping messages and saving them to a file
    - Continue until interrupted with Ctrl+C
+   - Feel free to continue using the tab as it will not crash if you switch servers/channels.
 
 ## Configuration Options
 
