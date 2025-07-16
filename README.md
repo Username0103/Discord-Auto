@@ -1,10 +1,6 @@
-Based on the analysis of the Discord-Auto repository and research into Discord scraping tools, I can help you create a README and description for this project. Here's what I've learned about the repository:
-
-## README for Discord-Auto
-
 # Discord-Auto
 
-A Python-based Discord message scraper that automatically logs into Discord accounts and extracts message data from specified servers and channels[1]. This tool uses Selenium WebDriver to automate Discord's web interface and collect conversation history for analysis or archival purposes.
+A Python-based Discord message scraper that automatically logs into Discord accounts and extracts message data from specified servers and channels. This tool uses Selenium WebDriver to automate Discord's web interface and collect conversation history for analysis or archival purposes.
 
 ## Features
 
